@@ -80,17 +80,17 @@ execute_with_prompt "필요한 포트 개방 중..." \
 sleep 2
 
 # 6. CESS nodeadm 다운로드 및 설치
-execute_with_prompt "CESSv0.5.7 다운로드 중..." \
-    "wget https://github.com/CESSProject/cess-nodeadm/archive/v0.5.7.tar.gz"
-execute_with_prompt "CESSv0.5.7 압축 해제 중..." \
-    "tar -xvzf v0.5.7.tar.gz"
+execute_with_prompt "CESSv0.5.8 다운로드 중..." \
+    "wget https://github.com/CESSProject/cess-nodeadm/archive/v0.5.8.tar.gz"
+execute_with_prompt "CESSv0.5.8 압축 해제 중..." \
+    "tar -xvzf v0.5.8.tar.gz"
 
 # CESS nodeadm 디렉토리로 이동
 echo -e "${YELLOW}디렉토리 이동 시도 중...${NC}"
-cd cess-nodeadm-0.5.7 || { echo -e "${RED}디렉토리 이동 실패${NC}"; exit 1; }
+cd cess-nodeadm-0.5.8 || { echo -e "${RED}디렉토리 이동 실패${NC}"; exit 1; }
 echo -e "${YELLOW}현재 디렉토리: $(pwd)${NC}"
 
-execute_with_prompt "CESSv0.5.7 설치 중..." "sudo ./install.sh"
+execute_with_prompt "CESSv0.5.8 설치 중..." "sudo ./install.sh"
 
 # 사용자 안내 메시지
 echo -e "${RED}다음과 같은 안내 메시지가 나오면${NC} ${YELLOW}노란색${NC}${RED}과 같이 진행하세요:${NC}"
