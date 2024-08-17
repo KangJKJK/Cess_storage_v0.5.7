@@ -44,7 +44,7 @@ echo
 
 # 1. 패키지 업데이트 및 필요한 패키지 설치
 execute_with_prompt "패키지 업데이트 및 필요한 패키지 설치 중..." \
-    "sudo apt update && sudo apt install -y ca-certificates curl gnupg ufw"
+    "sudo apt update && sudo apt install -y ca-certificates curl gnupg ufw && sudo apt install expect"
 
 # 2. Docker GPG 키 및 저장소 설정
 execute_with_prompt "Docker GPG 키 및 저장소 설정 중..." \
@@ -122,7 +122,7 @@ execute_with_prompt "프로필 설정 구성 중..." "sudo cess profile testnet"
 sleep -2
 
 #cess구성 설정
-execute_with_prompt "CESS 구성 설정 중 (사용자 입력 필요)..." "script -q /dev/null sudo cess config set"
+execute_with_prompt "CESS 구성 설정 중 (사용자 입력 필요)..." "unbuffer sudo cess config set"
 
 # 8. CESS 노드 구동 및 Docker 로그 확인
 execute_with_prompt "CESS 노드 구동 및 Docker 로그 확인 중..." \
