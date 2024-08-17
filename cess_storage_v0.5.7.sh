@@ -56,22 +56,31 @@ execute_with_prompt "Docker 설치 중..." \
 execute_with_prompt "Docker 서비스 활성화 및 시작 중..." \
     "sudo systemctl enable docker && sudo systemctl start docker"
 
-# 5. UFW 방화벽 구성
-execute_with_prompt "UFW 방화벽 구성 중..." \
+# 5. UFW 설치 및 포트 개방
+execute_with_prompt "UFW 설치 중..." "sudo apt-get install -y ufw"
+read -p "UFW를 설치한 후 계속하려면 Enter를 누르세요..."
+execute_with_prompt "UFW 활성화 중..." "sudo ufw enable"
+execute_with_prompt "필요한 포트 개방 중..." \
     "sudo ufw enable && \
     sudo ufw allow ssh && \
     sudo ufw allow 22 && \
     sudo ufw allow 4001 && \
     sudo ufw allow 4000/tcp && \
     sudo ufw status"
+sleep 2
 
 # 6. CESS nodeadm 다운로드 및 설치
-execute_with_prompt "CESS nodeadm 다운로드 중..." \
+execute_with_prompt "CESSv0.5.7 다운로드 중..." \
     "wget https://github.com/CESSProject/cess-nodeadm/archive/v0.5.7.tar.gz"
-execute_with_prompt "CESS nodeadm 압축 해제 중..." \
+execute_with_prompt "CESSv0.5.7 압축 해제 중..." \
     "tar -xvzf v0.5.7.tar.gz"
-execute_with_prompt "CESS nodeadm 설치 중..." \
-    "cd cess-nodeadm-0.5.7/ && sudo ./install.sh"
+
+# 0g-storage-node 디렉토리로 이동
+echo -e "${YELLOW}디렉토리 이동 시도 중...${NC}"
+cd cess-nodeadm-0.5.7 || { echo -e "${RED}디렉토리 이동 실패${NC}"; exit 1; }
+echo -e "${YELLOW}현재 디렉토리: $(pwd)${NC}"
+
+execute_with_prompt "CESSv0.5.7 설치 중..." "sudo ./install.sh"
 
 # 사용자 안내 메시지
 echo -e "${RED}다음과 같은 안내 메시지가 나오면 노란색과 같이 진행하세요${NC}"
