@@ -134,10 +134,11 @@ echo "CESS 구성 완료."
 
 # 8. CESS 노드 구동 및 Docker 로그 확인
 execute_with_prompt "CESS 노드 구동 및 Docker 로그 확인 중..." \
-    "sudo cess start && docker logs bucket"
+    "sudo cess start && docker logs miner"
 
 echo -e "${YELLOW}모든 작업이 완료되었습니다. 컨트롤+A+D로 스크린을 종료해주세요.${NC}"
 echo -e "${GREEN}Cess wallet 생성: https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftestnet-rpc0.cess.cloud%2Fws%2F#/explorer${NC}"
 echo -e "${GREEN}Faucet 주소: https://cess.network/faucet.html${NC}"
+echo -e "${GREEN}노드구동 확인법: sudo cess miner stat && docker logs miner${NC}"
 echo -e "${GREEN}스크립트 작성자: https://t.me/kjkresearch${NC}"
 
