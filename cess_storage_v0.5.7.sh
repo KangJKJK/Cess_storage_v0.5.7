@@ -6,24 +6,6 @@ export YELLOW='\033[1;33m'
 export GREEN='\033[0;32m'
 export NC='\033[0m'  # No Color
 
-# 사용자 입력을 받을 프롬프트 함수 정의
-prompt_input() {
-    local prompt_message="$1"
-    local input_variable_name="$2"
-
-    echo -n "$prompt_message"
-    read -r "$input_variable_name"
-}
-
-# 프롬프트를 설정하고 명령어를 실행하는 함수 정의
-execute_with_prompt() {
-    local prompt_message="$1"
-    local command="$2"
-    
-    echo "$prompt_message"
-    eval "$command"
-}
-
 # 함수: 명령어 실행 및 결과 확인, 오류 발생 시 사용자에게 계속 진행할지 묻기
 execute_with_prompt() {
     local message="$1"
@@ -135,34 +117,18 @@ echo -e "${GREEN}10. Enter the TEE worker endpoints if you have any${NC}"
 echo -e "${YELLOW}엔터${NC}"
 
 # 7. CESS 프로필 및 설정 구성
-# 사용자에게 입력을 받기
-prompt_input "Enter cess node mode from 'authority/storage/rpcnode': " node_mode
-prompt_input "Enter cess storage listener port: " listener_port
-prompt_input "Enter cess rpc ws-url: " rpc_url
-prompt_input "Enter cess storage earnings account: " earnings_account
-prompt_input "Enter cess storage signature account phrase: " signature_account
-prompt_input "Enter cess storage disk path: " disk_path
-prompt_input "Enter cess storage space, by GB unit: " storage_space
-prompt_input "Enter the number of CPU cores used for mining: " cpu_cores
-prompt_input "Enter the staking account if you use one account to stake multiple nodes: " staking_account
-prompt_input "Enter the TEE worker endpoints if you have any: " tee_worker_endpoints
 
-# 프로필 설정
-execute_with_prompt "프로필 설정 구성 중..." "sudo cess profile testnet"
-sleep -2
+# CESS 프로필 설정
+echo "프로필 설정 구성 중..."
+sudo cess profile testnet
+
+# 잠시 대기
+sleep 2
 
 # CESS 구성 설정
-execute_with_prompt "CESS 구성 설정 중 (사용자 입력 필요)..." "sudo cess config set \
-    --node_mode \"$node_mode\" \
-    --listener_port \"$listener_port\" \
-    --rpc_url \"$rpc_url\" \
-    --earnings_account \"$earnings_account\" \
-    --signature_account \"$signature_account\" \
-    --disk_path \"$disk_path\" \
-    --storage_space \"$storage_space\" \
-    --cpu_cores \"$cpu_cores\" \
-    --staking_account \"$staking_account\" \
-    --tee_worker_endpoints \"$tee_worker_endpoints\""
+echo "CESS 구성 설정 중 (사용자 입력 필요)..."
+# `stdbuf`를 사용하여 명령어의 출력을 실시간으로 처리합니다.
+stdbuf -i0 -o0 -e0 sudo cess config set
 
 echo "CESS 구성 완료."
 
