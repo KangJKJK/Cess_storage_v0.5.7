@@ -114,4 +114,4 @@ execute_with_prompt "CESS 노드 구동 및 Docker 로그 확인 중..." \
     "sudo cess start && docker logs bucket"
 
 echo -e "${YELLOW}모든 작업이 완료되었습니다. 컨트롤+A+D로 스크린을 종료해주세요.${NC}"
-echo -e "${GREEN}스크립트 작성자: kangjk${NC}"
+echo -e "${GREEN}스크립트 작성자:https://t.me/kjkresearch${NC}"
