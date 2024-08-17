@@ -53,9 +53,14 @@ execute_with_prompt "Docker GPG 키 및 저장소 설정 중..." \
     echo 'deb [arch=\$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
     \$(lsb_release -cs) stable' | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null"
 
-# 3. Docker 설치
-execute_with_prompt "Docker 설치 중..." \
-    "sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io"
+# 3. Docker 설치 (이미 설치된 경우를 처리)
+echo -e "${YELLOW}Docker 설치 확인 중...${NC}"
+if ! command -v docker &> /dev/null; then
+    execute_with_prompt "Docker 설치 중..." \
+        "sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io"
+else
+    echo -e "${GREEN}Docker가 이미 설치되어 있습니다.${NC}"
+fi
 
 # 4. Docker 서비스 활성화 및 시작
 execute_with_prompt "Docker 서비스 활성화 및 시작 중..." \
@@ -66,11 +71,12 @@ execute_with_prompt "UFW 설치 중..." "sudo apt-get install -y ufw"
 read -p "UFW를 설치한 후 계속하려면 Enter를 누르세요..."
 execute_with_prompt "UFW 활성화 중..." "sudo ufw enable"
 execute_with_prompt "필요한 포트 개방 중..." \
-    "sudo ufw enable && \
-    sudo ufw allow ssh && \
+    "sudo ufw allow ssh && \
     sudo ufw allow 22 && \
     sudo ufw allow 4001 && \
     sudo ufw allow 4000/tcp && \
+    sudo ufw allow 8001 && \
+    sudo ufw allow 8001/tcp && \
     sudo ufw status"
 sleep 2
 
@@ -80,7 +86,7 @@ execute_with_prompt "CESSv0.5.7 다운로드 중..." \
 execute_with_prompt "CESSv0.5.7 압축 해제 중..." \
     "tar -xvzf v0.5.7.tar.gz"
 
-# 0g-storage-node 디렉토리로 이동
+# CESS nodeadm 디렉토리로 이동
 echo -e "${YELLOW}디렉토리 이동 시도 중...${NC}"
 cd cess-nodeadm-0.5.7 || { echo -e "${RED}디렉토리 이동 실패${NC}"; exit 1; }
 echo -e "${YELLOW}현재 디렉토리: $(pwd)${NC}"
