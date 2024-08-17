@@ -52,7 +52,6 @@ execute_with_prompt "Docker GPG 키 및 저장소 설정 중..." \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
     echo 'deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable' | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null"
 
-
 # 3. Docker 설치 (이미 설치된 경우를 처리)
 echo -e "${YELLOW}Docker 설치 확인 중...${NC}"
 if ! command -v docker &> /dev/null; then
@@ -118,7 +117,7 @@ echo -e "${YELLOW}엔터${NC}"
 
 # 7. CESS 프로필 및 설정 구성
 execute_with_prompt "CESS 프로필 및 설정 구성 중..." \
-    "sudo cess profile testnet && sudo cess config set"
+    "./setup_cess.expect"
 
 # 8. CESS 노드 구동 및 Docker 로그 확인
 execute_with_prompt "CESS 노드 구동 및 Docker 로그 확인 중..." \
@@ -128,3 +127,4 @@ echo -e "${YELLOW}모든 작업이 완료되었습니다. 컨트롤+A+D로 스�
 echo -e "${GREEN}Cess wallet 생성: https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftestnet-rpc0.cess.cloud%2Fws%2F#/explorer${NC}"
 echo -e "${GREEN}Faucet 주소: https://cess.network/faucet.html${NC}"
 echo -e "${GREEN}스크립트 작성자: https://t.me/kjkresearch${NC}"
+
