@@ -68,7 +68,7 @@ execute_with_prompt "Docker 서비스 활성화 및 시작 중..." \
 # 5. UFW 설치 및 포트 개방
 execute_with_prompt "UFW 설치 중..." "sudo apt-get install -y ufw"
 read -p "UFW를 설치한 후 계속하려면 Enter를 누르세요..."
-execute_with_prompt "UFW 활성화 중..." "sudo ufw enable"
+execute_with_prompt "UFW 활성화 중...반응이 없으면 엔터를 누르세요" "sudo ufw enable"
 execute_with_prompt "필요한 포트 개방 중..." \
     "sudo ufw allow ssh && \
     sudo ufw allow 22 && \
@@ -122,7 +122,7 @@ execute_with_prompt "프로필 설정 구성 중..." "sudo cess profile testnet"
 sleep -2
 
 #cess구성 설정
-execute_with_prompt "CESS 구성 설정 중 (사용자 입력 필요)..." "sudo cess config set"
+execute_with_prompt "CESS 구성 설정 중 (사용자 입력 필요)..." "script -q /dev/null sudo cess config set"
 
 # 8. CESS 노드 구동 및 Docker 로그 확인
 execute_with_prompt "CESS 노드 구동 및 Docker 로그 확인 중..." \
