@@ -93,31 +93,36 @@ echo -e "${YELLOW}현재 디렉토리: $(pwd)${NC}"
 execute_with_prompt "CESSv0.5.7 설치 중..." "sudo ./install.sh"
 
 # 사용자 안내 메시지
-echo -e "${RED}다음과 같은 안내 메시지가 나오면 노란색과 같이 진행하세요${NC}"
-echo -e "${RED}1. Enter cess node mode from 'authority/storage/rpcnode${NC}"
+echo -e "${RED}다음과 같은 안내 메시지가 나오면${NC} ${YELLOW}노란색${NC}${RED}과 같이 진행하세요:${NC}"
+
+echo -e "${GREEN}1. Enter cess node mode from 'authority/storage/rpcnode'${NC}"
 echo -e "${YELLOW}storage${NC}"
-echo -e "${RED}2. Enter cess storage listener port${NC}"
+echo -e "${GREEN}2. Enter cess storage listener port${NC}"
 echo -e "${YELLOW}엔터${NC}"
-echo -e "${RED}3. Enter cess rpc ws-url${NC}"
+echo -e "${GREEN}3. Enter cess rpc ws-url${NC}"
 echo -e "${YELLOW}엔터${NC}"
-echo -e "${RED}4. Enter cess storage earnings account${NC}"
+echo -e "${GREEN}4. Enter cess storage earnings account${NC}"
 echo -e "${YELLOW}리워드를 받을 지갑 주소${NC}"
-echo -e "${RED}5. Enter cess storage signature account phrase${NC}"
+echo -e "${GREEN}5. Enter cess storage signature account phrase${NC}"
 echo -e "${YELLOW}위와 다른 지갑의 복구문자${NC}"
-echo -e "${RED}6. Enter cess storage disk path${NC}"
+echo -e "${GREEN}6. Enter cess storage disk path${NC}"
 echo -e "${YELLOW}엔터${NC}"
-echo -e "${RED}7. Enter cess storage space, by GB unit${NC}"
+echo -e "${GREEN}7. Enter cess storage space, by GB unit${NC}"
 echo -e "${YELLOW}200${NC}"
-echo -e "${RED}8. Enter the number of CPU cores used for mining${NC}"
+echo -e "${GREEN}8. Enter the number of CPU cores used for mining${NC}"
 echo -e "${YELLOW}Your CPU cores라고 나오는 숫자${NC}"
-echo -e "${RED}9. Enter the staking account if you use one account to stake multiple nodes${NC}"
+echo -e "${GREEN}9. Enter the staking account if you use one account to stake multiple nodes${NC}"
 echo -e "${YELLOW}엔터${NC}"
-echo -e "${RED}10. Enter the TEE worker endpoints if you have any${NC}"
+echo -e "${GREEN}10. Enter the TEE worker endpoints if you have any${NC}"
 echo -e "${YELLOW}엔터${NC}"
 
 # 7. CESS 프로필 및 설정 구성
-execute_with_prompt "CESS 프로필 및 설정 구성 중..." \
-    "sudo cess profile testnet && sudo cess config set"
+# 프로필 설정
+execute_with_prompt "프로필 설정 구성 중..." "sudo cess profile testnet"
+sleep -2
+
+#cess구성 설정
+execute_with_prompt "CESS 구성 설정 중 (사용자 입력 필요)..." "sudo cess config set"
 
 # 8. CESS 노드 구동 및 Docker 로그 확인
 execute_with_prompt "CESS 노드 구동 및 Docker 로그 확인 중..." \
