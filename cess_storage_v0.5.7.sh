@@ -117,7 +117,7 @@ echo -e "${YELLOW}엔터${NC}"
 
 # 7. CESS 프로필 및 설정 구성
 execute_with_prompt "CESS 프로필 및 설정 구성 중..." \
-    "./setup_cess.expect"
+    "sudo cess profile testnet && sudo cess config set"
 
 # 8. CESS 노드 구동 및 Docker 로그 확인
 execute_with_prompt "CESS 노드 구동 및 Docker 로그 확인 중..." \
