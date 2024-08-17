@@ -46,12 +46,12 @@ echo
 execute_with_prompt "패키지 업데이트 및 필요한 패키지 설치 중..." \
     "sudo apt update && sudo apt install -y ca-certificates curl gnupg ufw"
 
-# 2. Docker 저장소와 GPG 키 재설정
+# 2. Docker GPG 키 및 저장소 설정
 execute_with_prompt "Docker GPG 키 및 저장소 설정 중..." \
     "sudo mkdir -p /etc/apt/keyrings && \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
-    echo 'deb [arch=\$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-    \$(lsb_release -cs) stable' | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null"
+    echo 'deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable' | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null"
+
 
 # 3. Docker 설치 (이미 설치된 경우를 처리)
 echo -e "${YELLOW}Docker 설치 확인 중...${NC}"
